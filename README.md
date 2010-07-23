@@ -12,6 +12,10 @@ default to ``http://localhost:5984``.
 
 ## Usage
 
+Load the template library in your template:
+
+    {% load couchdb %}
+
 The first argument is a path relative to your CouchDB server. For example, the
 following example outputs ``{"couchdb":"Welcome","version":"0.10.0"}``.
 
