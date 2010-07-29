@@ -32,10 +32,18 @@ def get_content(url, **kwargs):
         server = "http://localhost:5984"
 
     url = urllib.basejoin(server, url)
+    data = None
     if kwargs:
+        # Handle the special case of bulk document retrieval using an array of
+        # keys that need to be POSTed.
+        if "keys" in kwargs:
+            data = simplejson.dumps(
+                {"keys": kwargs.pop("keys")}
+            )
+
         url = "%s?%s" % (url, urllib.urlencode(kwargs))
 
-    return urllib.urlopen(url).read().strip()
+    return urllib.urlopen(url, data).read().strip()
 
 
 class CouchDbNode(Node):
