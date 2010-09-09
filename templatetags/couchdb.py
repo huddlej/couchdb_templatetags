@@ -41,7 +41,7 @@ def get_content(url, **kwargs):
                 {"keys": kwargs.pop("keys")}
             )
 
-        url = "%s?%s" % (url, urllib.urlencode(kwargs))
+        url = url % kwargs
 
     return urllib.urlopen(url, data).read().strip()
 
