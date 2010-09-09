@@ -70,15 +70,18 @@ def couchdb(parser, token):
     For example, use the following code to embed the content of a CouchDB list
     with an include_docs parameter::
 
-        {% couchdb /mydb/_design/mydesigndoc/_list/mylist/myview include_docs="true" %}
+        {% couchdb /mydb/_design/mydesigndoc/_list/mylist/myview?include_docs=true %}
 
     These arguments will be used to get content from the following URL::
 
         http://localhost:5984/mydb/_design/mydesigndoc/_list/mylist/myview?include_docs=true
 
     The first argument is a CouchDB url relative to the server defined as
-    ``COUCHDB_SERVER`` in settings.py. Keyword arguments are space-separated
-    values that will be used to build a query string for the URL.
+    ``COUCHDB_SERVER`` in settings.py. Keyword arguments are specified in the
+    URL's query string. The only exception is the ``data`` argument which is
+    passed as a template tag keyword argument.
+
+        {% couchdb /mydb/_design/mydesigndoc/_list/mylist/myview?include_docs=true data=my_keys %}
     """
     bits = token.split_contents()
     if len(bits) < 2:
